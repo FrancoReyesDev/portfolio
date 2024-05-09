@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layout/BaseLayout.astro';
+import Header from "@/components/Header.astro"
+
+    export const getStaticPaths = async ()=>([
+        {params:{lang:"es"}},
+        {params:{lang:"en"}},
+    ])
+
+    const {lang} = Astro.params;
+
+---
+
+
+<BaseLayout pageTitle='Home'>
+    <Header lang={lang as "en"|"es"}/>
+</BaseLayout>

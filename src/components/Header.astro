@@ -1,0 +1,17 @@
+---
+import { ui } from "@/i18n/ui"
+    interface Props {
+        lang:"en"|"es"
+    }
+    const {lang} = Astro.props
+    const {greeting,cta,shortAbout} = ui[lang]
+---
+
+<header>
+    <p>{greeting}</p>
+    <h1>Franco Reyes</h1>
+    <p>{shortAbout}</p>
+    <a href="#">{cta}</a>
+    <hr>
+</header>
+
