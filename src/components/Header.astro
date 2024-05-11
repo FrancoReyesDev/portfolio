@@ -1,17 +1,14 @@
 ---
-import { ui } from "@/i18n/ui"
-    interface Props {
-        lang:"en"|"es"
-    }
-    const {lang} = Astro.props
-    const {greeting,cta,shortAbout} = ui[lang]
+import { ui } from "@/i18n/ui";
+import { home } from "@/i18n/docs";
+
+const lang = (Astro.currentLocale as "es" | "en") || "en";
+const { greeting, about } = ui[lang];
+const { shortAbout } = home[lang];
+const aboutUrl = `/${lang}/about`;
 ---
 
 <header>
-    <p>{greeting}</p>
-    <h1>Franco Reyes</h1>
-    <p>{shortAbout}</p>
-    <a href="#">{cta}</a>
-    <hr>
+  <p>{shortAbout} <a href={aboutUrl}>{about}.</a></p>
+  <hr />
 </header>
-

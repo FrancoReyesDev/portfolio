@@ -1,0 +1,24 @@
+---
+import { ui } from "@/i18n/ui";
+
+const lang = Astro.currentLocale as "es" | "en";
+const { skills, comingSoon, nextUp, interestedIn } = ui[lang];
+const skillsList = [
+  "NodeJs, NextJs, Astro,React, React",
+  "Material UI, Tailwind CSS",
+  "TypeScript, Javascript, HTML, CSS, Python",
+  "SQL, NoSQL",
+];
+---
+
+<article>
+  <h2>{skills}</h2>
+  <ul>
+    {skillsList.map((skill) => <li>&bull; {skill}</li>)}
+  </ul>
+  <h3>{comingSoon}</h3>
+  <p>
+    {nextUp}: Rust, Solidity<br />{interestedIn}: Docker, Laravel, Blockchain,
+    AI
+  </p>
+</article>

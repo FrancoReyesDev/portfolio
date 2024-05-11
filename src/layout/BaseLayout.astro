@@ -1,23 +1,40 @@
 ---
-interface Props{
-    pageTitle:string
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  pageTitle: string;
+  withHomeLink?: boolean;
 }
 
-const {pageTitle} = Astro.props
+const { pageTitle, withHomeLink = false } = Astro.props;
+const lang = Astro.currentLocale;
+const homeUrl = `/${lang}/`;
 ---
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle} - Franco Reyes</title>
-        <slot name="head"/>
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-	</head>
-	<body class="dark:bg-black bg-cream">
-        <main class=" container mx-auto py-12 h-screen w-1/2">
-            <slot/>
-        </main>
-	</body>
+
+<html transition:animate="none" lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle} - Franco Reyes</title>
+    <slot name="head" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <ViewTransitions />
+  </head>
+  <body class="dark:bg-black bg-white">
+    <main class="container mx-auto p-8 max-w-screen-sm">
+      <nav>
+        {
+          withHomeLink ? (
+            <a href={homeUrl}>← franco reyes</a>
+          ) : (
+            <h1>Franco Reyes</h1>
+          )
+        } theme idioma cv
+      </nav>
+
+      <slot />
+    </main>
+  </body>
 </html>
