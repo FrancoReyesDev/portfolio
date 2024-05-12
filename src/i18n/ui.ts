@@ -8,11 +8,14 @@ type Ui = {
     nextUp: string;
     interestedIn: string;
     about: string;
+    now: string;
+    contact: string;
   };
 };
 
 export const ui: Ui = {
   en: {
+    contact: "Contact",
     greeting: "Hi! My name is",
     cta: "Get in touch! --->",
     projects: "Projects",
@@ -21,8 +24,10 @@ export const ui: Ui = {
     nextUp: "Next up",
     interestedIn: "Interested in",
     about: "About me",
+    now: "now",
   },
   es: {
+    contact: "Contacto",
     greeting: "Hola! Mi nombre es",
     cta: "Contactame! --->",
     about: "Sobre mi",
@@ -31,5 +36,6 @@ export const ui: Ui = {
     comingSoon: "Proximamente",
     nextUp: "Siguiente",
     interestedIn: "Interesado en",
+    now: "ahora",
   },
 };
