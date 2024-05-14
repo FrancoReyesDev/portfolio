@@ -1,18 +1,56 @@
 ---
 import BaseLayout from "@/layout/BaseLayout.astro";
-import Header from "@/components/Header.astro";
-import Skills from "@/components/Skills.astro";
-import Projects from "@/components/Projects.astro";
+import { P, A, Hr, H2, H3, Ul } from "@/components";
+import { ui } from "@/i18n/ui";
+import { home } from "@/i18n/docs";
 
 export const getStaticPaths = () => {
   return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
 };
 
-const { lang } = Astro.params;
+const lang = Astro.params.lang as "es" | "en";
+const { greeting, about, projects, skills, comingSoon, nextUp, interestedIn } =
+  ui[lang];
+const { shortAbout, projectsList } = home[lang];
+const aboutUrl = `/${lang}/about`;
+const skillsList = [
+  "NodeJs, NextJs, Astro,React, React",
+  "Material UI, Tailwind CSS",
+  "TypeScript, Javascript, HTML, CSS, Python",
+  "SQL, NoSQL",
+];
 ---
 
 <BaseLayout pageTitle={lang === "es" ? "Inicio" : "Home"}>
-  <Header />
-  <Skills />
-  <Projects />
+  <section>
+    <P>
+      {shortAbout}
+      <A href={aboutUrl}>{about}.</A>
+    </P>
+    <Hr />
+  </section>
+  <section>
+    <H2 class="font-semibold text-xl mb-2 mt-4">{projects}</H2>
+    <Ul>
+      {
+        projectsList.map(({ title, shortResume }) => (
+          <li>
+            &bull; {title} - {shortResume}
+          </li>
+        ))
+      }
+    </Ul>
+  </section>
+
+  <section>
+    <H2>{skills}</H2>
+    <Ul>
+      {skillsList.map((skill) => <li>&bull; {skill}</li>)}
+    </Ul>
+    <H3>{comingSoon}</H3>
+    <Ul>
+      <li>&bull; {nextUp}: Rust, Solidity</li>
+      <li>&bull; {interestedIn}: Docker, Laravel, Blockchain, AI</li>
+    </Ul>
+  </section>
 </BaseLayout>

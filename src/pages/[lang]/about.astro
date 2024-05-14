@@ -5,7 +5,9 @@ import { Image } from "astro:assets";
 import BaseLayout from "@/layout/BaseLayout.astro";
 import francoNinja from "@/images/francoNinja.jpg";
 import francoPlayero from "@/images/francoPlayero.png";
+import francoWapo from "@/images/francoWapo.jpg";
 import francoSki from "@/images/francoSki.jpg";
+import { H2, P } from "@/components";
 
 export const getStaticPaths = () => {
   return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
@@ -19,26 +21,56 @@ const { about: aboutTitle, now, contact } = ui[lang];
 const itbaUrl = "https://www.itba.edu.ar";
 ---
 
+<style>
+  .gallery {
+    animation: slideLeft 20s infinite; /* Animación de deslizamiento hacia la izquierda */
+  }
+
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(0); /* Empieza desde la posición original */
+    }
+    25% {
+      transform: translateX(-100%); /* Desplaza a la izquierda */
+    }
+    50% {
+      transform: translateX(-200%); /* Desplaza aún más a la izquierda */
+    }
+    75% {
+      transform: translateX(-300%); /* Regresa al principio */
+    }
+    100% {
+      transform: translateX(0); /* Regresa al principio */
+    }
+  }
+</style>
+
 <!-- <h1>about</h1> -->
 <BaseLayout pageTitle={aboutTitle} withHomeLink>
   <article>
-    <h1>{aboutTitle}</h1>
-    <p>
+    <H2>{aboutTitle}</H2>
+    <P>
       {intro}
       <a href={itbaUrl}>ITBA</a>{location}
-    </p>
-    <p>{cleanCode}</p>
-    <p>{hobbies}</p>
-    <p>{whatImDoing} <a href="#now">{now}</a></p>
+    </P>
+    <P>{cleanCode}</P>
+    <P>{hobbies}</P>
+    <!-- <P>{whatImDoing} <a href="#now">{now}</a></P> -->
 
-    <section>
-      <Image src={francoNinja} alt={"Franco ninja"} />
-      <Image src={francoPlayero} alt={"Franco playero"} />
-      <Image src={francoSki} alt={"Franco Ski"} />
+    <section class="flex overflow-hidden rounded-md my-10">
+      <Image src={francoSki} class={"gallery"} alt={"Franco Ski"} />
+      <Image src={francoNinja} class={"gallery"} alt={"Franco ninja"} />
+      <Image
+        src={francoWapo}
+        class={"gallery"}
+        alt={"Franco Reyes"}
+        title={"smile?? xd"}
+      />
+      <Image src={francoPlayero} class={"gallery"} alt={"Franco playero"} />
     </section>
   </article>
 
   <article>
-    <h2>{contact}</h2>
+    <H2>{contact}</H2>
   </article>
 </BaseLayout>

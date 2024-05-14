@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   pageTitle: string;
@@ -23,18 +24,54 @@ const homeUrl = `/${lang}/`;
     <ViewTransitions />
   </head>
   <body class="dark:bg-black bg-white">
-    <main class="container mx-auto p-8 max-w-screen-sm">
-      <nav>
-        {
-          withHomeLink ? (
-            <a href={homeUrl}>← franco reyes</a>
-          ) : (
-            <h1>Franco Reyes</h1>
-          )
-        } theme idioma cv
-      </nav>
-
-      <slot />
-    </main>
+    <div class="container mx-auto p-8 max-w-screen-sm">
+      <header class="mb-5" transition:animate="fade">
+        <nav>
+          {
+            withHomeLink ? (
+              <a href={homeUrl}>
+                <h1
+                  class="before:content-['←'] font-light text-base"
+                  transition:animate="initial"
+                  transition:name="title"
+                >
+                  Franco Reyes
+                </h1>
+              </a>
+            ) : (
+              <h1
+                class="font-semibold text-3xl"
+                transition:animate="initial"
+                transition:name="title"
+              >
+                Franco Reyes
+              </h1>
+            )
+          }
+        </nav>
+        <div class="flex items-center">
+          <label class="flex items-center">
+            <Icon name={"lang"} />
+            <select value="/es/guides/internationalization/">
+              <option value="/en/guides/internationalization/">English</option
+              ><option value="/es/guides/internationalization/" selected="true"
+                >Español</option
+              >
+            </select>
+          </label>
+          <label class="flex items-center">
+            <Icon name="theme" />
+            <select value="light">
+              <option value="dark">Oscuro</option><option value="light"
+                >Claro</option
+              >
+            </select>
+          </label>
+        </div>
+      </header>
+      <article role="main">
+        <slot />
+      </article>
+    </div>
   </body>
 </html>

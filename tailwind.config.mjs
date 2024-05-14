@@ -8,11 +8,12 @@ export default {
   theme: {
     colors: {
       dark: "#0a0908",
-      blue: "#22333b",
+      blue: "#003566",
       cream: "#f2f4f3",
       white: "#fafafa",
       brown: "#a9927d",
     },
+
     extend: {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
