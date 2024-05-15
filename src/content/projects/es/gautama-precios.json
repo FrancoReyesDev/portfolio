@@ -1,0 +1,21 @@
+{
+  "title": "Gautama Precios",
+  "objective": "Automatizar actualizaciones de precios de múltiples proveedores y listas, integrándose perfectamente con el ERP Contabilium para la gestión de inventario y facturación. Enfocado en modificar aproximadamente 20,000 ítems finales de manera precisa, sin necesidad de un servidor adicional y manteniendo la funcionalidad en el frontend.",
+  "technologies": [
+    ["NodeJs"],
+    ["Next.js"],
+    ["TypeScript"],
+    ["React"],
+    ["Dexie.js"],
+    ["MaterialUi"],
+    ["Lodash"]
+  ],
+  "milestones": [
+    "Reducimos el tiempo de finalización de la tarea de varios días con 4 empleados a solo un par de horas con solo 1 empleado.",
+    "Logramos actualizaciones continuas de precios, lo que resultó en un mejor rendimiento de ventas.",
+    "Eliminamos los costos de infraestructura utilizando un enfoque frontend sin la necesidad de un servidor.",
+    "Simplificamos la tarea a solo 4 botones, maximizando la eficiencia del usuario."
+  ],
+  "image": "../gautama-precios.png",
+  "shortResume": "Herramienta de gestión de precios e inventario, integrada con un ERP, que agiliza el proceso de actualización de listas y reduce costos de infraestructura, llevando el trabajo de varios días a solo unas pocas horas."
+}

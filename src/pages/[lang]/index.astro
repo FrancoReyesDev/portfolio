@@ -3,15 +3,23 @@ import BaseLayout from "@/layout/BaseLayout.astro";
 import { P, A, Hr, H2, H3, Ul } from "@/components";
 import { ui } from "@/i18n/ui";
 import { home } from "@/i18n/docs";
+import { getCollection } from "astro:content";
 
 export const getStaticPaths = () => {
   return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
 };
 
 const lang = Astro.params.lang as "es" | "en";
-const { greeting, about, projects, skills, comingSoon, nextUp, interestedIn } =
-  ui[lang];
-const { shortAbout, projectsList } = home[lang];
+const {
+  greeting,
+  about,
+  projects: projectsTitle,
+  skills,
+  comingSoon,
+  nextUp,
+  interestedIn,
+} = ui[lang];
+const { shortAbout } = home[lang];
 const aboutUrl = `/${lang}/about`;
 const skillsList = [
   "NodeJs, NextJs, Astro,React, React",
@@ -19,6 +27,9 @@ const skillsList = [
   "TypeScript, Javascript, HTML, CSS, Python",
   "SQL, NoSQL",
 ];
+const projects = await getCollection("projects", ({ id }) =>
+  id.startsWith(lang)
+);
 ---
 
 <BaseLayout pageTitle={lang === "es" ? "Inicio" : "Home"}>
@@ -29,11 +40,13 @@ const skillsList = [
     </P>
     <Hr />
   </section>
+
+  <!-- Projects -->
   <section>
-    <H2 class="font-semibold text-xl mb-2 mt-4">{projects}</H2>
+    <H2 class="font-semibold text-xl mb-2 mt-4">{projectsTitle}</H2>
     <Ul>
       {
-        projectsList.map(({ title, shortResume }) => (
+        projects.map(({ data: { title, shortResume } }) => (
           <li>
             &bull; {title} - {shortResume}
           </li>
