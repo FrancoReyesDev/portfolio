@@ -16,6 +16,6 @@
     "Eliminamos los costos de infraestructura utilizando un enfoque frontend sin la necesidad de un servidor.",
     "Simplificamos la tarea a solo 4 botones, maximizando la eficiencia del usuario."
   ],
-  "image": "../gautama-precios.png",
+  "image": "gautama-precios.png",
   "shortResume": "Herramienta de gestión de precios e inventario, integrada con un ERP, que agiliza el proceso de actualización de listas y reduce costos de infraestructura, llevando el trabajo de varios días a solo unas pocas horas."
 }

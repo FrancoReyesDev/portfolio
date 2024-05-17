@@ -7,7 +7,7 @@ import francoNinja from "@/images/francoNinja.jpg";
 import francoPlayero from "@/images/francoPlayero.png";
 import francoWapo from "@/images/francoWapo.jpg";
 import francoSki from "@/images/francoSki.jpg";
-import { H2, P } from "@/components";
+import { A, H2, P } from "@/components";
 
 export const getStaticPaths = () => {
   return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
@@ -16,7 +16,7 @@ export const getStaticPaths = () => {
 const lang = Astro.currentLocale as "es" | "en";
 
 const { intro, location, cleanCode, hobbies, whatImDoing } = about[lang];
-const { about: aboutTitle, now, contact } = ui[lang];
+const { about: aboutTitle } = ui[lang];
 
 const itbaUrl = "https://www.itba.edu.ar";
 ---
@@ -50,8 +50,8 @@ const itbaUrl = "https://www.itba.edu.ar";
   <article>
     <H2>{aboutTitle}</H2>
     <P>
-      {intro}
-      <a href={itbaUrl}>ITBA</a>{location}
+      {intro}{" "}
+      <A href={itbaUrl}>ITBA</A>{location}
     </P>
     <P>{cleanCode}</P>
     <P>{hobbies}</P>
@@ -68,9 +68,5 @@ const itbaUrl = "https://www.itba.edu.ar";
       />
       <Image src={francoPlayero} class={"image"} alt={"Franco playero"} />
     </section>
-  </article>
-
-  <article>
-    <H2>{contact}</H2>
   </article>
 </BaseLayout>

@@ -18,6 +18,7 @@ const {
   comingSoon,
   nextUp,
   interestedIn,
+  contact,
 } = ui[lang];
 const { shortAbout } = home[lang];
 const aboutUrl = `/${lang}/about`;
@@ -35,20 +36,21 @@ const projects = await getCollection("projects", ({ id }) =>
 <BaseLayout pageTitle={lang === "es" ? "Inicio" : "Home"}>
   <section>
     <P>
-      {shortAbout}
+      {shortAbout}{" "}
       <A href={aboutUrl}>{about}.</A>
     </P>
-    <Hr />
   </section>
+  <Hr />
 
   <!-- Projects -->
   <section>
     <H2 class="font-semibold text-xl mb-2 mt-4">{projectsTitle}</H2>
     <Ul>
       {
-        projects.map(({ data: { title, shortResume } }) => (
+        projects.map(({ id, data: { title, shortResume } }) => (
           <li>
-            &bull; {title} - {shortResume}
+            &bull; <A href={"project/" + id.split("/")[1]}>{title}</A> -{" "}
+            {shortResume}
           </li>
         ))
       }
@@ -66,4 +68,24 @@ const projects = await getCollection("projects", ({ id }) =>
       <li>&bull; {interestedIn}: Docker, Laravel, Blockchain, AI</li>
     </Ul>
   </section>
+  <Hr />
+  <article id="contact">
+    <H2>{contact}</H2>
+    <Ul>
+      <li>&bull; <strong>Phone:</strong> +54 9 11 3365 1449</li>
+      <li>
+        &bull; <strong>E-mail:</strong>{" "}
+        <A href="mailto:fdreyes.dev@gmail.com" target="_blank"
+          >fdr160102@gmail.com</A
+        >
+      </li>
+      <li>&bull; <strong>location:</strong> Buenos Aires, Argentina</li>
+      <li>
+        &bull; <strong>Linkedin:</strong>{" "}<A
+          href="https://www.linkedin.com/in/francoreyesdev/"
+          target="_blank">Franco Reyes</A
+        >
+      </li>
+    </Ul>
+  </article>
 </BaseLayout>
