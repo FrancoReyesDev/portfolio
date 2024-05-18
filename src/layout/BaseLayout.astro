@@ -67,8 +67,13 @@ const homeUrl = `/${lang}/`;
         | "dark"
         | "white"
         | null;
-      if (savedTheme === null) return localStorage.setItem("theme", "white");
+      if (savedTheme === null) {
+        localStorage.setItem("theme", "white");
+        switchTheme("white");
+        return;
+      }
       if (savedTheme !== themeSelect.value) themeSelect.value = savedTheme;
+      switchTheme(savedTheme);
     };
 
     const checkLang = () => {
