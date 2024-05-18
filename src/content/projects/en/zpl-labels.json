@@ -1,0 +1,19 @@
+{
+  "title": "Zpl Labels",
+  "objective": "Automate the generation and printing of ZPL labels from the application on a local server, integrated with CUPS.",
+  "technologies": [
+    ["NodeJs"],
+    ["Next.js"],
+    ["TypeScript"],
+    ["React"],
+    ["Zpl"],
+    ["Lodash"],
+    ["CUPS"]
+  ],
+  "milestones": [
+    "Optimized product labeling process, reducing errors and processing time.",
+    "Simplified the task to just 3 buttons, maximizing user efficiency."
+  ],
+  "image": "zpl-labels.png",
+  "shortResume": "Automate the generation and printing of ZPL labels from the application on a local server, integrated with CUPS."
+}

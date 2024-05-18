@@ -10,6 +10,9 @@ type Ui = {
     about: string;
     now: string;
     contact: string;
+    technologies: string;
+    milestones: string;
+    theme: [dark: string, white: string];
   };
 };
 
@@ -25,6 +28,9 @@ export const ui: Ui = {
     interestedIn: "Interested in",
     about: "About me",
     now: "now",
+    technologies: "Technologies",
+    milestones: "Milestones",
+    theme: ["Dark", "White"],
   },
   es: {
     contact: "Contacto",
@@ -37,5 +43,8 @@ export const ui: Ui = {
     nextUp: "Siguiente",
     interestedIn: "Interesado en",
     now: "ahora",
+    technologies: "Tecnologias",
+    milestones: "Logros",
+    theme: ["Oscuro", "Claro"],
   },
 };

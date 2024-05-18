@@ -1,0 +1,19 @@
+{
+  "title": "Etiquetas Zpl",
+  "objective": "Automatizar la generación e impresión de etiquetas ZPL desde la aplicación en un servidor local, integrado con CUPS.",
+  "technologies": [
+    ["NodeJs"],
+    ["Next.js"],
+    ["TypeScript"],
+    ["React"],
+    ["Zpl"],
+    ["Lodash"],
+    ["CUPS"]
+  ],
+  "milestones": [
+    "Optimizó el proceso de etiquetado de productos, reduciendo errores y tiempo de procesamiento.",
+    "Simplificó la tarea a solo 3 botones, maximizando la eficiencia del usuario."
+  ],
+  "image": "zpl-labels.png",
+  "shortResume": "Automatizar la generación e impresión de etiquetas ZPL desde la aplicación en un servidor local, integrado con CUPS."
+}

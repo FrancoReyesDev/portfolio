@@ -7,7 +7,7 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     colors: {
-      dark: "#0a0908",
+      dark: "#242423",
       blue: "#003566",
       cream: "#f2f4f3",
       white: "#fafafa",

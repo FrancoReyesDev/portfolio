@@ -1,6 +1,8 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import { Icon } from "astro-icon/components";
+import { navigate } from "astro:transitions/client";
+import { ui } from "@/i18n/ui";
 
 interface Props {
   pageTitle: string;
@@ -8,11 +10,83 @@ interface Props {
 }
 
 const { pageTitle, withHomeLink = false } = Astro.props;
-const lang = Astro.currentLocale;
+const lang = Astro.currentLocale as "en" | "es";
+const {
+  theme: [dark, white],
+} = ui[lang];
+
 const homeUrl = `/${lang}/`;
 ---
 
-<html transition:animate="none" lang={lang}>
+<script>
+  import { navigate } from "astro:transitions/client";
+
+  document.addEventListener("astro:page-load", () => {
+    const html = document.getElementsByTagName("html")[0];
+    const langSelect = document.getElementById(
+      "langSelect"
+    ) as HTMLSelectElement;
+    const themeSelect = document.getElementById(
+      "themeSelect"
+    ) as HTMLSelectElement;
+
+    themeSelect.addEventListener("change", ({ target }) => {
+      if (target === null) return;
+      const newTheme = (target as HTMLSelectElement).value;
+      if (newTheme !== "white" && newTheme !== "dark") return;
+      localStorage.setItem("theme", newTheme);
+      switchTheme(newTheme);
+    });
+
+    langSelect.addEventListener("change", ({ target }) => {
+      if (target === null) return;
+      const newLang = (target as HTMLSelectElement).value;
+      if (newLang !== "en" && newLang !== "es") return;
+      localStorage.setItem("lang", newLang);
+      switchLang(newLang);
+    });
+
+    const switchTheme = (theme: "dark" | "white") => {
+      themeSelect.value = theme;
+      if (html.classList.contains(theme)) return;
+      html.classList.remove("dark", "white");
+      html.classList.add(theme);
+    };
+
+    const switchLang = (lang: "es" | "en") => {
+      const currentLang = window.location.pathname.split("/")[1] as "en" | "es";
+      langSelect.value = lang;
+      if (currentLang === lang) return;
+
+      const newUrl = window.location.pathname.replace(currentLang, lang);
+      navigate(newUrl);
+    };
+
+    const checkTheme = () => {
+      const savedTheme = localStorage.getItem("theme") as
+        | "dark"
+        | "white"
+        | null;
+      if (savedTheme === null) return localStorage.setItem("theme", "white");
+      if (savedTheme !== themeSelect.value) themeSelect.value = savedTheme;
+    };
+
+    const checkLang = () => {
+      const savedLang = localStorage.getItem("lang");
+      if (savedLang === null) return localStorage.setItem("lang", "en");
+      if (savedLang !== langSelect.value) langSelect.value = savedLang;
+    };
+
+    checkLang();
+    checkTheme();
+  });
+</script>
+
+<html
+  transition:animate="none"
+  class="dark transition-all duration-300"
+  lang={lang}
+>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,17 +95,17 @@ const homeUrl = `/${lang}/`;
     <title>{pageTitle} - Franco Reyes</title>
     <slot name="head" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <!-- <ViewTransitions /> -->
+    <ViewTransitions />
   </head>
-  <body class="dark:bg-black bg-white">
-    <div class="container mx-auto p-8 max-w-screen-sm">
+  <body class="dark:bg-dark bg-white">
+    <div class="container mx-auto p-8 py-10 max-w-screen-sm">
       <header class="mb-5" transition:animate="fade">
         <nav>
           {
             withHomeLink ? (
               <a href={homeUrl}>
                 <h1
-                  class="before:content-['←'] font-light text-base"
+                  class="before:content-['←'] dark:text-white font-light text-base"
                   transition:animate="initial"
                   transition:name="title"
                 >
@@ -40,7 +114,7 @@ const homeUrl = `/${lang}/`;
               </a>
             ) : (
               <h1
-                class="font-semibold text-3xl"
+                class="font-semibold dark:text-white text-3xl"
                 transition:animate="initial"
                 transition:name="title"
               >
@@ -51,20 +125,25 @@ const homeUrl = `/${lang}/`;
         </nav>
         <div class="flex items-center">
           <label class="flex items-center">
-            <Icon name={"lang"} />
-            <select value="/es/guides/internationalization/">
-              <option value="/en/guides/internationalization/">English</option
-              ><option value="/es/guides/internationalization/" selected="true"
-                >Español</option
-              >
+            <Icon class={"dark:text-white"} name={"lang"} />
+            <select
+              id="langSelect"
+              class="dark:bg-dark dark:text-white"
+              value="en"
+            >
+              <option value="en">English</option>
+              <option value="es">Español</option>
             </select>
           </label>
           <label class="flex items-center">
-            <Icon name="theme" />
-            <select value="light">
-              <option value="dark">Oscuro</option><option value="light"
-                >Claro</option
-              >
+            <Icon class={"dark:text-white"} name="theme" />
+            <select
+              id="themeSelect"
+              class="dark:bg-dark dark:text-white"
+              value="white"
+            >
+              <option value="dark">{dark}</option>
+              <option value="white">{white}</option>
             </select>
           </label>
         </div>

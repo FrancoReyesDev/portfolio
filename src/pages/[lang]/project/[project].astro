@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "@/layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { A, H2, P, Ul } from "@/components";
+import { P, H3, Ul } from "@/components";
 import { Image } from "astro:assets";
-
+import { ui } from "@/i18n/ui";
 export const getStaticPaths = async () => {
   const projects = await getCollection("projects");
   return projects.map(({ id }) => {
@@ -13,157 +13,74 @@ export const getStaticPaths = async () => {
 };
 
 const { lang, project: projectName } = Astro.params;
+const { milestones, technologies } = ui[lang as "es" | "en"];
+
 const projects = await getCollection(
   "projects",
   ({ id }) => id === lang + "/" + projectName
 );
 const {
   title,
-  objective,
-  technologies,
-  milestones,
   image: imageSrc,
+  objective,
+  technologies: technologiesList,
+  milestones: milestonesList,
 } = projects[0].data;
 const image = import.meta.glob<{ default: ImageMetadata }>(
   "/src/images/projects/*.{jpg,png,jpeg}"
 );
 ---
 
-<style>
-  /* Style the Image Used to Trigger the Modal */
-  #myImg {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  #myImg:hover {
-    opacity: 0.7;
-  }
-
-  /* The Modal (background) */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    /* padding-top: 100px; Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  }
-
-  /* Modal Content (Image) */
-  .modal-content {
-    margin: auto;
-    display: block;
-    width: 80vw;
-    /* max-width: 700px; */
-  }
-
-  /* Caption of Modal Image (Image Text) - Same Width as the Image */
-  #caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-  }
-
-  /* Add Animation - Zoom in the Modal */
-  .modal-content,
-  #caption {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-  }
-
-  @keyframes zoom {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
-  /* The Close Button */
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px) {
-    .modal-content {
-      width: 100%;
-    }
-  }
-</style>
-
 <script>
-  // Get the modal
-  var modal = document.getElementById("myModal");
+  document.addEventListener("astro:page-load", () => {
+    const img = document.getElementById("img");
+    const imgModal = document.getElementById("imgModal");
 
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-  var img = document.getElementById("myImg");
-  var modalImg = document.getElementById("img01");
-  var captionText = document.getElementById("caption");
-  img.onclick = function () {
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
-  };
+    if (img === null || imgModal === null) return;
 
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+    const changeVisiblity = () =>
+      imgModal.classList.contains("md:block")
+        ? imgModal.classList.remove("md:block")
+        : imgModal.classList.add("md:block");
 
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
+    [img, imgModal].forEach((element) =>
+      element.addEventListener("click", changeVisiblity)
+    );
+  });
 </script>
 
 <BaseLayout pageTitle={projectName} withHomeLink>
-  <H2>{title}</H2>
-  <!-- Trigger the Modal -->
-  <!-- <img
-    id="myImg"
-    src="/favicon.svg"
-    alt="Snow"
-    style="width:100%;max-width:300px"
-  /> -->
+  <h2 class="font-semibold text-3xl mb-4 mt-4">{title}</h2>
+  <P>{objective}</P>
+
   <Image
-    id={"myImg"}
-    class={"border-solid border-2 border-black rounded"}
+    id={"img"}
+    class={"my-6 cursor-pointer border-cream border-2 border-solid shadow-lg hover:shadow-xl rounded"}
     alt={title}
     src={image["/src/images/projects/" + imageSrc]()}
   />
+  <H3>{technologies}</H3>
+  <Ul>
+    {technologiesList.map((technologie) => <li>&bull; {technologie}</li>)}
+  </Ul>
+  <H3>{milestones}</H3>
+  <Ul>
+    {milestonesList.map((milestone) => <li>&bull; {milestone}</li>)}
+  </Ul>
 
   <!-- The Modal -->
-  <div id="myModal" class="modal">
-    <!-- The Close Button -->
-    <span class="close">&times;</span>
-
+  <div
+    id="imgModal"
+    class="hidden md:fixed md:inset-0 md:bg-dark md:bg-opacity-80"
+  >
     <!-- Modal Content (The Image) -->
-    <img class="modal-content" id="img01" />
+    <div class="h-screen flex flex-col justify-center content-center">
+      <Image
+        class={"w-4/5 rounded m-auto"}
+        alt={title}
+        src={image["/src/images/projects/" + imageSrc]()}
+      />
+    </div>
 
     <!-- Modal Caption (Image Text) -->
     <div id="caption"></div>
