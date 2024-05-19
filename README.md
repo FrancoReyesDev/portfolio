@@ -1,12 +1,7 @@
 [View in English](#english) | [Ver en Español](#español)
 
 ## english
-
-# Portfolio
-
-[View in English](#english) | [Ver en Español](#español)
-
-## Welcome to my Portfolio!
+# Welcome to my Portfolio!
 
 This portfolio is built with Astro and is 100% static. Feel free to use it as a template for your own portfolio.
 
@@ -35,12 +30,7 @@ I hope you find this portfolio helpful! If you have any questions or suggestions
 <hr/>
 
 ## español
-
-# Portfolio
-
-[Ver en Inglés](#english) | [View in English](#english)
-
-## ¡Bienvenido a mi Portfolio!
+# ¡Bienvenido a mi Portfolio!
 
 Este portfolio está construido con Astro y es 100% estático. Siéntase libre de usarlo como plantilla para su propio portfolio.
 
