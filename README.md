@@ -25,7 +25,7 @@ This portfolio already includes a theme system (light and dark) and language con
 
 This portfolio is fully responsive, ensuring optimal viewing and interaction experience across a wide range of devices.
 
-I hope you find this portfolio helpful! If you have any questions or suggestions, feel free to contact me.
+I hope you find this portfolio helpful! If you have any questions or suggestions, feel free to contact me. fdreyes.dev@gmail.com
 
 <hr/>
 
@@ -54,4 +54,4 @@ Este portfolio ya incluye un sistema de temas (claro y oscuro) y configuración 
 
 Este portfolio es completamente Responsive, garantizando una experiencia óptima de visualización e interacción en una amplia gama de dispositivos.
 
-¡Espero que encuentres este portfolio útil! Si tienes alguna pregunta o sugerencia, no dudes en contactarme.
+¡Espero que encuentres este portfolio útil! Si tienes alguna pregunta o sugerencia, no dudes en contactarme. fdreyes.dev@gmail.com
