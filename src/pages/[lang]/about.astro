@@ -50,12 +50,6 @@ const itbaUrl = "https://www.itba.edu.ar";
 
       const childrenIndex = children.indexOf(clickedChild);
       const clickedChildWidth = clickedChild.clientWidth;
-      console.log({
-        offsetX,
-        clickedChildWidth,
-        childrenIndex,
-        c: offsetX >= clickedChildWidth / 2,
-      });
 
       offsetX >= clickedChildWidth / 2
         ? children[childrenIndex + 1] !== undefined &&
