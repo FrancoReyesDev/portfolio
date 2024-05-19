@@ -1,7 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import { Icon } from "astro-icon/components";
-import { navigate } from "astro:transitions/client";
 import { ui } from "@/i18n/ui";
 
 interface Props {
@@ -129,7 +128,7 @@ const homeUrl = `/${lang}/`;
             <Icon class={"dark:text-white"} name={"lang"} />
             <select
               id="langSelect"
-              class="dark:bg-dark dark:text-white"
+              class="bg-transparent dark:bg-dark dark:text-white"
               value="en"
             >
               <option value="en">English</option>
@@ -140,7 +139,7 @@ const homeUrl = `/${lang}/`;
             <Icon class={"dark:text-white"} name="theme" />
             <select
               id="themeSelect"
-              class="dark:bg-dark dark:text-white"
+              class="bg-transparent dark:bg-dark dark:text-white"
               value="white"
             >
               <option value="dark">{dark}</option>

@@ -4,6 +4,8 @@ type Props = { href: string; target?: string };
 const { href, target = "_self" } = Astro.props;
 ---
 
-<a class="underline text-blue font-medium" href={href} target={target}
-  ><slot /></a
+<a
+  class="underline text-blue dark:text-darkBlue font-medium"
+  href={href}
+  target={target}><slot /></a
 >
