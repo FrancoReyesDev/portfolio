@@ -8,6 +8,7 @@ import francoPlayero from "@/images/francoPlayero.png";
 import francoWapo from "@/images/francoWapo.jpg";
 import francoSki from "@/images/francoSki.jpg";
 import { A, H2, P } from "@/components";
+import Carousel from "@/components/Carousel.astro";
 
 export const getStaticPaths = () => {
   return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
@@ -21,66 +22,6 @@ const { about: aboutTitle } = ui[lang];
 const itbaUrl = "https://www.itba.edu.ar";
 ---
 
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const carousel = document.getElementById("carousel");
-    if (carousel === null) return;
-    const { scrollWidth } = carousel;
-    const children = Array.from(carousel.children);
-
-    let currentImageIndex = 0;
-    let autoScrollIsPaused = false;
-
-    const scroll = () => {
-      const newScrollX = (scrollWidth / children.length) * currentImageIndex;
-
-      carousel.scroll({
-        left: newScrollX,
-        behavior: "smooth",
-      });
-    };
-
-    carousel.addEventListener("click", (event) => {
-      const { target: clickedChild, offsetX } = event as {
-        target: HTMLImageElement | null;
-        offsetX: number;
-      };
-
-      if (clickedChild === null) return;
-
-      const childrenIndex = children.indexOf(clickedChild);
-      const clickedChildWidth = clickedChild.clientWidth;
-
-      offsetX >= clickedChildWidth / 2
-        ? children[childrenIndex + 1] !== undefined &&
-          (currentImageIndex = childrenIndex + 1)
-        : children[childrenIndex - 1] !== undefined &&
-          (currentImageIndex = childrenIndex - 1);
-
-      scroll();
-    });
-
-    setInterval(() => {
-      if (autoScrollIsPaused) return;
-
-      children[currentImageIndex + 1] === undefined
-        ? (currentImageIndex = 0)
-        : (currentImageIndex += 1);
-
-      scroll();
-    }, 4000);
-
-    carousel.addEventListener("mouseenter", () => {
-      autoScrollIsPaused = true;
-    });
-
-    carousel.addEventListener("mouseleave", () => {
-      autoScrollIsPaused = false;
-    });
-  });
-</script>
-
-<!-- <h1>about</h1> -->
 <BaseLayout pageTitle={aboutTitle} withHomeLink>
   <article>
     <H2>{aboutTitle}</H2>
@@ -91,10 +32,9 @@ const itbaUrl = "https://www.itba.edu.ar";
     <P>{cleanCode}</P>
     <P>{hobbies}</P>
 
-    <section
-      id="carousel"
-      class="cursor-pointer rounded rounded-2 shadow-md flex flex-row flex-nowrap snap-x snap-mandatory overflow-auto"
-    >
+    <Carousel>
+      <!-- Put Images here -->
+
       <Image src={francoSki} class={"image snap-center"} alt={"Franco Ski"} />
       <Image
         src={francoNinja}
@@ -112,6 +52,6 @@ const itbaUrl = "https://www.itba.edu.ar";
         class={"image snap-center "}
         alt={"Franco playero"}
       />
-    </section>
+    </Carousel>
   </article>
 </BaseLayout>

@@ -1,0 +1,72 @@
+---
+/** images */
+interface Props {
+  children: HTMLImageElement[];
+}
+---
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const carousel = document.getElementById("carousel");
+    if (carousel === null) return;
+    const { scrollWidth } = carousel;
+    const children = Array.from(carousel.children);
+
+    let currentImageIndex = 0;
+    let autoScrollIsPaused = false;
+
+    const scroll = () => {
+      const newScrollX = (scrollWidth / children.length) * currentImageIndex;
+
+      carousel.scroll({
+        left: newScrollX,
+        behavior: "smooth",
+      });
+    };
+
+    carousel.addEventListener("click", (event) => {
+      const { target: clickedChild, offsetX } = event as {
+        target: HTMLImageElement | null;
+        offsetX: number;
+      };
+
+      if (clickedChild === null) return;
+
+      const childrenIndex = children.indexOf(clickedChild);
+      const clickedChildWidth = clickedChild.clientWidth;
+
+      offsetX >= clickedChildWidth / 2
+        ? children[childrenIndex + 1] !== undefined &&
+          (currentImageIndex = childrenIndex + 1)
+        : children[childrenIndex - 1] !== undefined &&
+          (currentImageIndex = childrenIndex - 1);
+
+      scroll();
+    });
+
+    setInterval(() => {
+      if (autoScrollIsPaused) return;
+
+      children[currentImageIndex + 1] === undefined
+        ? (currentImageIndex = 0)
+        : (currentImageIndex += 1);
+
+      scroll();
+    }, 4000);
+
+    carousel.addEventListener("mouseenter", () => {
+      autoScrollIsPaused = true;
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      autoScrollIsPaused = false;
+    });
+  });
+</script>
+
+<section
+  id="carousel"
+  class="cursor-pointer rounded rounded-2 shadow-md flex flex-row flex-nowrap snap-x snap-mandatory overflow-auto"
+>
+  <slot />
+</section>
