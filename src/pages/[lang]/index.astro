@@ -11,7 +11,6 @@ export const getStaticPaths = () => {
 
 const lang = Astro.params.lang as "es" | "en";
 const {
-  greeting,
   about,
   projects: projectsTitle,
   skills,
@@ -28,6 +27,7 @@ const skillsList = [
   "TypeScript, Javascript, HTML, CSS, Python",
   "SQL, NoSQL",
 ];
+const cvUrl = { en: "/cv-en.pdf", es: "/cv-es.pdf" };
 const projects = await getCollection("projects", ({ id }) =>
   id.startsWith(lang)
 );
@@ -72,6 +72,7 @@ const projects = await getCollection("projects", ({ id }) =>
   <article id="contact">
     <H2>{contact}</H2>
     <Ul>
+      <li>&bull; <strong><a href={cvUrl[lang]}>CV</a></strong></li>
       <li>&bull; <strong>Phone:</strong> +54 9 11 3365 1449</li>
       <li>
         &bull; <strong>E-mail:</strong>{" "}
