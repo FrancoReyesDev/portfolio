@@ -66,18 +66,24 @@ const homeUrl = `/${lang}/`;
         | "dark"
         | "white"
         | null;
+
       if (savedTheme === null) {
         localStorage.setItem("theme", "white");
         switchTheme("white");
         return;
       }
+
       if (savedTheme !== themeSelect.value) themeSelect.value = savedTheme;
       switchTheme(savedTheme);
     };
 
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang");
-      if (savedLang === null) return localStorage.setItem("lang", "en");
+      if (savedLang === null) {
+        localStorage.setItem("lang", "en");
+        switchLang("en");
+        return;
+      }
       if (savedLang !== langSelect.value) langSelect.value = savedLang;
     };
 
@@ -89,12 +95,18 @@ const homeUrl = `/${lang}/`;
 <html transition:animate="none" class="transition-all duration-300" lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <meta property="og:title" content="Franco 
+    <meta property="og:title" content="Franco Reyes - Portfolio" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://francoreyes.vercel.app" />
-    <meta property="og:description" content="Bienvenido a mi portfolio! Soy Franco Reyes, un desarrollador Full Stack apasionado por crear experiencias web excepcionales. Explora mi trabajo y descubre cómo puedo ayudarte a llevar tus proyectos al siguiente nivel." />
-    <meta property="og:image" content="https://francoreyes.vercel.app/francoreyes.jpeg" />
-    <meta property="og:site_name" content="Franco Reyes - Porfolio" />
+    <meta
+      property="og:description"
+      content="Bienvenido a mi portfolio! Soy Franco Reyes, un desarrollador Full Stack apasionado por crear experiencias web excepcionales. Explora mi trabajo y descubre cómo puedo ayudarte a llevar tus proyectos al siguiente nivel."
+    />
+    <meta
+      property="og:image"
+      content="https://francoreyes.vercel.app/francoreyes.jpeg"
+    />
+    <meta property="og:site_name" content="Franco Reyes - Portfolio" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
@@ -103,6 +115,7 @@ const homeUrl = `/${lang}/`;
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <ViewTransitions />
   </head>
+
   <body class="dark:bg-dark bg-white">
     <div class="container mx-auto p-8 py-10 max-w-screen-sm">
       <header class="mb-5" transition:animate="fade">
