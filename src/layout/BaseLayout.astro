@@ -22,6 +22,7 @@ const homeUrl = `/${lang}/`;
 
   document.addEventListener("astro:page-load", () => {
     const html = document.getElementsByTagName("html")[0];
+
     const langSelect = document.getElementById(
       "langSelect"
     ) as HTMLSelectElement;
@@ -73,18 +74,23 @@ const homeUrl = `/${lang}/`;
         return;
       }
 
-      if (savedTheme !== themeSelect.value) themeSelect.value = savedTheme;
-      switchTheme(savedTheme);
+      if (savedTheme !== themeSelect.value) {
+        themeSelect.value = savedTheme;
+        switchTheme(savedTheme);
+      }
     };
 
     const checkLang = () => {
-      const savedLang = localStorage.getItem("lang");
+      const savedLang = localStorage.getItem("lang") as "es" | "en" | null;
       if (savedLang === null) {
         localStorage.setItem("lang", "en");
         switchLang("en");
         return;
       }
-      if (savedLang !== langSelect.value) langSelect.value = savedLang;
+      if (savedLang !== langSelect.value) {
+        langSelect.value = savedLang;
+        switchLang(savedLang);
+      }
     };
 
     checkLang();
